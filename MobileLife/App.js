@@ -1,9 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, { Component } from "react";
 import {
   Platform,
@@ -14,24 +8,23 @@ import {
   Image,
   TouchableOpacity
 } from "react-native";
-
 import { StackNavigator, createStackNavigator } from "react-navigation";
+import { YellowBox } from "react-native";
 
-// const App = StackNavigator({
-//   Home: { screen: HomeScreen },
-//   Profile: { screen: ProfileScreen },
-// });
+import BookitScreen from "./src/components/bookit.js";
+import FARScreen from "./src/components/far.js";
+import LPTScreen from "./src/components/lpt.js";
 
-const instructions = Platform.select({
-  ios: "4444444Press Cmd+R to reload,\n" + "Cmd+D or shake for dev menu",
-  android:
-    "s tap R on your keyboard to reload,\n" +
-    "Shake or press menu button for dev menu"
-});
+//Get rid of https://github.com/react-navigation/react-navigation/issues/3956
+YellowBox.ignoreWarnings([
+  "Warning: isMounted(...) is deprecated",
+  "Module RCTImageLoader"
+]);
 
 const MAIN_COLOR = "#b71c1c";
 
 type Props = {};
+
 class DetailsScreen extends Component {
   render() {
     return (
@@ -68,19 +61,22 @@ class MainScreen extends Component {
   };
   render() {
     var projectList = [
-      { title: "Bookit.com", path: "/bookit" },
-      { title: "LPT", path: "/lpt" },
-      { title: "FAR", path: "/far" }
+      { title: "Bookit.com", path: "Bookit" },
+      { title: "LPT", path: "LPT" },
+      { title: "FAR", path: "FAR" }
     ];
     var buttons = [];
 
     for (var i = 0; i < projectList.length; i++) {
+      var name = projectList[i].path;
       buttons.push(
         <TouchableOpacity
           style={styles.projectBtn}
           key={i}
           onPress={() =>
-            this.props.navigation.navigate("Details", { name: "Home" })
+            this.props.navigation.navigate(name, {
+              name: "data"
+            })
           }
         >
           <Text style={styles.projectBtnTxt}>{projectList[i].title}</Text>
@@ -109,10 +105,10 @@ class MainScreen extends Component {
 const RootStack = createStackNavigator(
   {
     Home: MainScreen,
-    Details: DetailsScreen
-    // Bookit: BookitScreen,
-    // LPT: LPTScreen,
-    // FAR: FarScreen,
+    Details: DetailsScreen,
+    Bookit: BookitScreen,
+    LPT: LPTScreen,
+    FAR: FARScreen
   },
   {
     initialRouteName: "Home"
