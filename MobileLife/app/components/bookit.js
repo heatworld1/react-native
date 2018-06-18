@@ -9,7 +9,9 @@ import {
   ScrollView
 } from "react-native";
 
-class LPTScreen extends Component {
+const MAIN_COLOR = "#62c623";
+
+class BookitScreen extends Component {
   constructor(props) {
     super(props);
     state = {
@@ -30,6 +32,12 @@ class LPTScreen extends Component {
       console.warn("Cannot open date picker", message);
     }
   }
+  static navigationOptions = {
+    headerStyle: {
+      backgroundColor: MAIN_COLOR
+    },
+    headerTintColor: "#fff",
+  };
   render() {
     return (
       <View style={styles.container}>
@@ -265,7 +273,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0
   },
   searchBtn: {
-    backgroundColor: "#62c623",
+    backgroundColor: MAIN_COLOR,
     alignItems: "center",
     paddingTop: 8,
     paddingBottom: 8
@@ -287,7 +295,7 @@ const styles = StyleSheet.create({
     color: "white"
   },
   perNight: {
-    backgroundColor: "#62c623",
+    backgroundColor: MAIN_COLOR,
     position: "absolute",
     bottom: 15,
     left: 0,
@@ -306,4 +314,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default LPTScreen;
+export default BookitScreen;

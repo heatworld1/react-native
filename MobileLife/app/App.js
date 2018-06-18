@@ -6,14 +6,14 @@ import {
   View,
   Button,
   Image,
-  TouchableOpacity
+  TouchableOpacity,
+  YellowBox
 } from "react-native";
 import { StackNavigator, createStackNavigator } from "react-navigation";
-import { YellowBox } from "react-native";
 
-import BookitScreen from "./src/components/bookit.js";
-import FARScreen from "./src/components/far.js";
-import LPTScreen from "./src/components/lpt.js";
+import BookitScreen from "./components/bookit.js";
+import FARScreen from "./components/far.js";
+import LPTScreen from "./components/lpt.js";
 
 //Get rid of https://github.com/react-navigation/react-navigation/issues/3956
 YellowBox.ignoreWarnings([
@@ -67,22 +67,21 @@ class MainScreen extends Component {
     ];
     var buttons = [];
 
-    for (var i = 0; i < projectList.length; i++) {
-      var name = projectList[i].path;
-      buttons.push(
+    var projectList = projectList.map((list, i) => {
+      return (
         <TouchableOpacity
           style={styles.projectBtn}
           key={i}
           onPress={() =>
-            this.props.navigation.navigate(name, {
+            this.props.navigation.navigate(list.path, {
               name: "data"
             })
           }
         >
-          <Text style={styles.projectBtnTxt}>{projectList[i].title}</Text>
+          <Text style={styles.projectBtnTxt}>{list.title}</Text>
         </TouchableOpacity>
       );
-    }
+    });
 
     return (
       <View style={styles.container}>
@@ -95,7 +94,7 @@ class MainScreen extends Component {
             UCF with a degree in Information Technology and a minor in digital
             media
           </Text>
-          <View style={styles.btnContainer}>{buttons}</View>
+          <View style={styles.btnContainer}>{projectList}</View>
         </View>
       </View>
     );
